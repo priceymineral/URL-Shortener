@@ -1,8 +1,8 @@
-imprt fs from "fs";
+import fs from "fs";
 
 export const Storage = {
-  data: fs.exstsSync("storage.json") // check if the file exists
-    ? JSON.parse(fs.readFilySync("storage.json", "utf8")) // if it does, parse the file
+  data: fs.existsSync("storage.json") // check if the file exists
+    ? JSON.parse(fs.readFileSync("storage.json", "utf8")) // if it does, parse the file
     : JSON.parse( // if it doesn't exist, create it then parse the data
         fs.readFileSync(
           fs.appendFileSync("storage.json", "{ links: [] }"), "utf8"
