@@ -11,16 +11,23 @@ export const cutURL = (req, res) => {
     return res.status(400).send("Bad request");
   } else {
     // In case we successfully manage to validate the URL, we would need to generate a key/code for it, for this we will use replace method that will make a string of 5 hexadecimal characters.
+    // if URL is not in Storage, create the code and push obj to links
+    // if URL is in Storage, simply return the code from that obj
+
     const code =  "xxxxx".replace(/x/g, () =>
       Math.floor(Math.random() * 16).toString(16)
     );
 
-    Storage.data.links.push({
-      url: req.body.url,
-      code: code
-    });
+    // Storage.data.links.push({
+    //   url: req.body.url,
+    //   code: code
+    // });
+    Storage.data.links[req.body.url] = code;
     Storage.write();
-
+    // How do I want to retrieve URL's from a given code?
+    // could do Object.values() then do .includes() on them
+    // could iterate trhough the object
+    // could turn into a Map and use Map methods
     res.status(200).send({
       code: code
     });

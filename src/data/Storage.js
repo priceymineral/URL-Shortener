@@ -5,7 +5,7 @@ export const Storage = {
     ? JSON.parse(fs.readFileSync("storage.json", "utf8")) // if it does, parse the file
     : JSON.parse( // if it doesn't exist, create it then parse the data
         fs.readFileSync(
-          fs.appendFileSync("storage.json", "{ links: [] }"), "utf8"
+          fs.appendFileSync("storage.json", "{ links: {} }"), "utf8"
         )
       ),
 
