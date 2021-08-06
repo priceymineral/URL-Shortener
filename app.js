@@ -9,8 +9,8 @@ const port = 8080;
 app.use(express.json());
 
 if (Storage.data.links === undefined) {
-  // Storage.data.links = {};
-  Storage.data.links = new Map();
+  Storage.data.links = {};
+  // Storage.data.links = new Map();
   Storage.write();
 }
 
