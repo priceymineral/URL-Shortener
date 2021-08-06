@@ -14,3 +14,4 @@ Future Features:
 2. Connect to Reddis.io
 3. Implement validator.js library
 4. Switch Storage.data.links to an object to use Storage.data.links[link/code] instead of Storage.data.links.forEach(linkObject)
+5. Don't create a new for the same URL
