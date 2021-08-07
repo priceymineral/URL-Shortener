@@ -15,3 +15,8 @@ Future Features:
 3. Implement validator.js library
 4. Switch Storage.data.links to an object to use Storage.data.links[link/code] instead of Storage.data.links.forEach(linkObject) (completed)
 5. Don't create a new code for the same URL
+6. Determine why validator.js is not working (it is currently validating invalid URLs)
+
+Bugs:
+
+1. validator.js is "validating" invalid URLs
