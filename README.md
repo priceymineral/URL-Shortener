@@ -10,7 +10,7 @@ Instructions:
 
 Future Features:
 
-1. Install nodemon for dev debugging
+1. Install nodemon for dev debugging (completed)
 2. Connect to Reddis.io
 3. Implement validator.js library
 4. Switch Storage.data.links to an object to use Storage.data.links[link/code] instead of Storage.data.links.forEach(linkObject) (completed)
