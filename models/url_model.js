@@ -1,15 +1,14 @@
 //Require Mongoose
 import mongoose from 'mongoose';
-//Define a schema
-var Schema = mongoose.Schema;
 
-var URLSchema = new Schema({
+// Define Schema
+const urlSchema = new mongoose.Schema({
   url: String,
-  code: Number
+  code: String
 });
 
 // Compile model from schema
-let URLModel = mongoose.model('URL', URLSchema );
+const URL = mongoose.model('URL', urlSchema );
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export#using_named_exports
-export { URLModel };
+export { URL };

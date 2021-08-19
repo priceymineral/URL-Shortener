@@ -1,16 +1,57 @@
 //Import the mongoose module
-var mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 //Set up default mongoose connection
-var mongoDB = 'mongodb://127.0.0.1/url_shortener';
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true}).then(async _ => {
-  console.log("Connected to MongoDB successfully :)");
-}).catch(err => {
-  console.log(err)
-});;
+const mongoDB = 'mongodb://localhost:27017/test_db';
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true})
 
-//Get the default connection
-var db = mongoose.connection;
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('Connected to MongoDB');
 
-//Bind connection to error event (to get notification of connection errors)
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+  const kittySchema = new mongoose.Schema({
+    name: String
+  });
+
+  const Kitten = mongoose.model('Kitten', kittySchema);
+
+  const fluffy = new Kitten({ name: 'fluffy' });
+
+  fluffy.save(function (err, fluffy) {
+    if (err) return console.error(err);
+    console.log('saved fluffy to MongoDB')
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//   .then(async _ => {
+//     console.log("Connected to MongoDB successfully :)");
+//   })
+//   .catch(err => {
+//   console.log(err)
+//   });;
+
+// //Get the default connection
+// var db = mongoose.connection;
+
+// //Bind connection to error event (to get notification of connection errors)
+// db.on('error', console.error.bind(console, 'MongoDB connection error:'));

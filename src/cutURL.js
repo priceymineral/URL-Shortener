@@ -1,11 +1,11 @@
 import { Storage } from "./data/Storage.js";
-import { URLModel } from "../models/url_model.js";
+import { URL } from "../models/url_model.js";
 // URL VALIDATION USING validator.js:
 import validator from 'validator';
 
 export const cutURL = (req, res) => {
-  console.log("validator test:", validator.isURL(req.body.url));
-  console.log("request URL:", req.body.url);
+  console.log("Validator test:", validator.isURL(req.body.url));
+  console.log("Request URL:", req.body.url);
   if (validator.isURL(req.body.url)) {
     // Create code
     const code =  "xxxxx".replace(/x/g, () =>
@@ -13,18 +13,21 @@ export const cutURL = (req, res) => {
     );
 
     // Create model using url_models.js
-    let urlToSave = new URLModel({url: req.body.url, code: code});
+    let urlToSave = new URL({url: req.body.url, code: code});
     // Error
     // ReferenceError: URLToSave is not defined
     // at cutURL (file:///home/octavio/URL-Shortener/src/cutURL.js:19:5)
 
     // Save the new model instance, passing a callback
-    URLToSave.save(function (err) {
-      if (err) return handleError(err);
+    urlToSave.save(function (err) {
+      if (err) {
+        console.log('ERROR =>', err);
+      } else {
+        console.log("Success! Saved the URL.")
+      }
     // saved!
     });
 
-    console.log("Success! Saved the URL.")
   } else {
     return res.status(400).send("Bad request, your URL is invalid");
   };
