@@ -14,6 +14,15 @@ export const cutURL = (req, res) => {
 
     // Create model using url_models.js
     let urlToSave = new URLModel({url: req.body.url, code: code});
+    // Error
+    // ReferenceError: URLToSave is not defined
+    // at cutURL (file:///home/octavio/URL-Shortener/src/cutURL.js:19:5)
+
+    // Save the new model instance, passing a callback
+    URLToSave.save(function (err) {
+      if (err) return handleError(err);
+    // saved!
+    });
 
     console.log("Success! Saved the URL.")
   } else {

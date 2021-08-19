@@ -3,7 +3,11 @@ var mongoose = require('mongoose');
 
 //Set up default mongoose connection
 var mongoDB = 'mongodb://127.0.0.1/url_shortener';
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true}).then(async _ => {
+  console.log("Connected to MongoDB successfully :)");
+}).catch(err => {
+  console.log(err)
+});;
 
 //Get the default connection
 var db = mongoose.connection;
