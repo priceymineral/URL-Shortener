@@ -21,7 +21,7 @@ export const cutURL = (req, res) => {
     // Save the new model instance, passing a callback
     urlToSave.save(function (err) {
       if (err) {
-        console.log('ERROR =>', err);
+        console.log('Error =>', err);
       } else {
         console.log("Success! Saved the URL.")
       }
