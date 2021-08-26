@@ -11,8 +11,8 @@ Instructions:
 Future Features:
 
 1. Install nodemon for dev debugging (completed)
-2. Connect to Reddis.io
-3. Implement validator.js library
+2. Connect to MongoDB
+3. Implement validator.js library (completed but decided to resort to RegEx instead)
 4. Switch Storage.data.links to an object to use Storage.data.links[link/code] instead of Storage.data.links.forEach(linkObject) (completed)
 5. Don't create a new code for the same URL
 6. Determine why validator.js is not working (it is currently validating invalid URLs)
