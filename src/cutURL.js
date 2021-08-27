@@ -1,37 +1,53 @@
-import { Storage } from "./data/Storage.js";
-import { URL } from "../models/url_model.js";
+// import { Storage } from "./data/Storage.js";
+// import { URL } from "../models/url_model.js";
+import mongodb from 'mongodb';
+const { MongoClient } = mongodb;
 // URL VALIDATION USING validator.js:
 import validator from 'validator';
 
 export const cutURL = (req, res) => {
   console.log("Validator test:", validator.isURL(req.body.url));
   console.log("Request URL:", req.body.url);
+
   if (validator.isURL(req.body.url)) {
-    // Create code
     const code =  "xxxxx".replace(/x/g, () =>
       Math.floor(Math.random() * 16).toString(16)
     );
 
-    // Create model using url_models.js
-    let urlToSave = new URL({url: req.body.url, code: code});
-    // Error
-    // ReferenceError: URLToSave is not defined
-    // at cutURL (file:///home/octavio/URL-Shortener/src/cutURL.js:19:5)
+    async function main() {
+      const uri = "mongodb+srv://sirocular:node1234@cluster0.cbo3l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+      const client = new MongoClient(uri, { useUnifiedTopology: true });
 
-    // Save the new model instance, passing a callback
-    urlToSave.save(function (err) {
-      if (err) {
-        console.log('Error =>', err);
-      } else {
-        console.log("Success! Saved the URL.")
+      try {
+        await client.connect();
+        await createListing(client, {
+          url: req.body.url,
+          code: code
+        })
+
+      } catch (e) {
+        console.error(e);
+      } finally {
+        await client.close();
+
+        res.status(200).send({
+          code: code
+        });
       }
-    // saved!
-    });
+    }
+    main().catch(console.error);
 
   } else {
     return res.status(400).send("Bad request, your URL is invalid");
   };
 };
+
+async function createListing(client, newListing) {
+  const result = await client.db().collection('test_collection').insertOne(newListing);
+
+  console.log(`New listing inserted: ${result.insertedId}`);
+}
+
 // // URL VALIDATION USING validator.js:
 // import validator from 'validator';
 
