@@ -48,4 +48,6 @@ Thumbs.db
 *.mov
 *.wmv
 
-*.env
+# All files starting with '.' except .gitignore
+.*
+!.gitignore
