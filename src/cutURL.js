@@ -6,12 +6,11 @@ const { MongoClient } = mongodb;
 import validator from 'validator';
 
 export const cutURL = (req, res) => {
-  console.log("Validator test:", validator.isURL(req.body.url));
-  console.log("Request URL:", req.body.url);
-
+  // console.log("Validator test:", validator.isURL(req.body.url));
+  // console.log("Request URL:", req.body.url);
   if (validator.isURL(req.body.url)) {
-    const code =  "xxxxx".replace(/x/g, () =>
-      Math.floor(Math.random() * 16).toString(16)
+    const code =  "xxxxx".replace(
+      /x/g, () => Math.floor(Math.random() * 16).toString(16)
     );
 
     async function main() {
@@ -24,19 +23,17 @@ export const cutURL = (req, res) => {
           url: req.body.url,
           code: code
         })
-
+        res.status(200).send({
+          code: code
+        });
       } catch (e) {
         console.error(e);
       } finally {
         await client.close();
-
-        res.status(200).send({
-          code: code
-        });
       }
     }
-    // main().catch(console.error);
-    main();
+    main().catch(console.error);
+    // main();
 
   } else {
     return res.status(400).send("Bad request, your URL is invalid");
