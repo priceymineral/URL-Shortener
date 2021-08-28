@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 
 //Set up default mongoose connection
-const mongoDB = 'mongodb://localhost:27017/test_db';
+const mongoDB = process.env.MONGODB;
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true})
 
 const db = mongoose.connection;
