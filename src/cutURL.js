@@ -15,7 +15,7 @@ export const cutURL = (req, res) => {
     );
 
     async function main() {
-      const uri = "mongodb+srv://sirocular:node1234@cluster0.cbo3l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+      const uri = process.env.URI;
       const client = new MongoClient(uri, { useUnifiedTopology: true });
 
       try {
@@ -35,7 +35,8 @@ export const cutURL = (req, res) => {
         });
       }
     }
-    main().catch(console.error);
+    // main().catch(console.error);
+    main();
 
   } else {
     return res.status(400).send("Bad request, your URL is invalid");
@@ -45,7 +46,7 @@ export const cutURL = (req, res) => {
 async function createListing(client, newListing) {
   const result = await client.db().collection('test_collection').insertOne(newListing);
 
-  console.log(`New listing inserted: ${result.insertedId}`);
+  console.log(`New listing inserted with id: ${result.insertedId}`);
 }
 
 // // URL VALIDATION USING validator.js:
