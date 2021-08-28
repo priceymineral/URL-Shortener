@@ -15,7 +15,7 @@ export const cutURL = (req, res) => {
 
     async function main() {
       const uri = process.env.URI;
-      const client = new MongoClient(uri, { useUnifiedTopology: true });
+      const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
       try {
         await client.connect();
