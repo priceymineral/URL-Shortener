@@ -1,6 +1,6 @@
 import express from "express";
 // import { Storage } from "./src/data/Storage.js";
-import { cutURL } from "./app/cutURL.js";
+import { cutURL } from "./app/cut_url.js";
 import { redirect } from "./app/redirect.js";
 import './env.js';
 
