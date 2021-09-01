@@ -1,50 +1,25 @@
 // import { Storage } from "./data/Storage.js";
 // import { URL } from "../models/url_model.js";
-import mongodb from 'mongodb';
-const { MongoClient } = mongodb;
 // URL VALIDATION USING validator.js:
 import validator from 'validator';
+import { main } from '../connection.js';
 
-export const cutURL = (req, res) => {
+async function cutURL(req, res) {
   // console.log("Validator test:", validator.isURL(req.body.url));
   // console.log("Request URL:", req.body.url);
   if (validator.isURL(req.body.url)) {
     const code =  "xxxxx".replace(
       /x/g, () => Math.floor(Math.random() * 16).toString(16)
     );
-
-    async function main() {
-      const uri = process.env.URI;
-      const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-      try {
-        await client.connect();
-        await createListing(client, {
-          url: req.body.url,
-          code: code
-        })
-        res.status(200).send({
-          code: code
-        });
-      } catch (e) {
-        console.error(e);
-      } finally {
-        await client.close();
-      }
-    }
-    main().catch(console.error);
-    // main();
+    // call to save the url and code to DB
+    await main(code, req, res);
 
   } else {
     return res.status(400).send("Bad request, your URL is invalid");
   };
 };
 
-async function createListing(client, newListing) {
-  const result = await client.db().collection('test_collection').insertOne(newListing);
-
-  console.log(`New listing inserted with id: ${result.insertedId}`);
-}
+export { cutURL }
 
 // // URL VALIDATION USING validator.js:
 // import validator from 'validator';

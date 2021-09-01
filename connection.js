@@ -1,32 +1,44 @@
-//Import the mongoose module
-import mongoose from 'mongoose';
+import mongodb from 'mongodb';
+import './env.js';
 
-//Set up default mongoose connection
-const mongoDB = process.env.MONGODB;
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true})
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('Connected to MongoDB');
-
-  const kittySchema = new mongoose.Schema({
-    name: String
-  });
-
-  const Kitten = mongoose.model('Kitten', kittySchema);
-
-  const fluffy = new Kitten({ name: 'fluffy' });
-
-  fluffy.save(function (err, fluffy) {
-    if (err) return console.error(err);
-    console.log('saved fluffy to MongoDB')
-  });
+const { MongoClient } = mongodb;
+const uri = process.env.URI;
+console.log('uri:', uri);
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
+async function main(code, req, res) {
 
+  try {
+    await client.connect();
+    await createListing(client, {
+      url: req.body.url,
+      code: code
+    })
+    res.status(200).send({
+      code: code
+    });
 
+  } catch (e) {
+    console.error(e);
 
+  } finally {
+    await client.close();
+
+  }
+}
+
+// main().catch(console.error);
+
+async function createListing(client, newListing) {
+  const result = await client.db().collection('test_collection').insertOne(newListing);
+
+  console.log(`New listing inserted with id: ${result.insertedId}`);
+}
+
+export { main };
 
 
 
