@@ -1,8 +1,6 @@
-// import { Storage } from "./data/Storage.js";
-// import { URL } from "../models/url_model.js";
 // URL VALIDATION USING validator.js:
 import validator from 'validator';
-import { main } from '../../connection.js';
+import { client } from '../../connection.js';
 
 async function cutURL(req, res) {
   // console.log("Validator test:", validator.isURL(req.body.url));
@@ -12,12 +10,39 @@ async function cutURL(req, res) {
       /x/g, () => Math.floor(Math.random() * 16).toString(16)
     );
     // call to save the url and code to DB
-    await main(code, req, res);
+    async function main() {
+
+      try {
+        await client.connect();
+        await createListing(client, {
+          url: req.body.url,
+          code: code
+        })
+        res.status(200).send({
+          code: code
+        });
+
+      } catch (e) {
+        console.error(e);
+
+      } finally {
+        await client.close();
+
+      }
+    }
+
+    main().catch(console.error);
 
   } else {
     return res.status(400).send("Bad request, your URL is invalid");
   };
 };
+
+async function createListing(client, newListing) {
+  const result = await client.db().collection('test_collection').insertOne(newListing);
+
+  console.log(`New listing inserted with id: ${result.insertedId}`);
+}
 
 export { cutURL }
 

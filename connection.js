@@ -3,44 +3,12 @@ import './env.js';
 
 const { MongoClient } = mongodb;
 const uri = process.env.URI;
-// console.log('uri:', uri);
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
-async function main(code, req, res) {
-
-  try {
-    await client.connect();
-    await createListing(client, {
-      url: req.body.url,
-      code: code
-    })
-    res.status(200).send({
-      code: code
-    });
-
-  } catch (e) {
-    console.error(e);
-
-  } finally {
-    await client.close();
-
-  }
-}
-
-// main().catch(console.error);
-
-async function createListing(client, newListing) {
-  const result = await client.db().collection('test_collection').insertOne(newListing);
-
-  console.log(`New listing inserted with id: ${result.insertedId}`);
-}
-
-export { main };
-
-
+export { client };
 
 
 
