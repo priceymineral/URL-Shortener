@@ -3,7 +3,7 @@ import './env.js';
 
 const { MongoClient } = mongodb;
 const uri = process.env.URI;
-console.log('uri:', uri);
+// console.log('uri:', uri);
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
