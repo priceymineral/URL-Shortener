@@ -1,7 +1,7 @@
 import express from "express";
 // import { Storage } from "./src/data/Storage.js";
-import { cutURL } from "./app/cut_url.js";
-import { redirect } from "./app/redirect.js";
+import { cutURL } from "./app/controllers/cut_url.js";
+// import { redirect } from "./app/controllers/redirect.js";
 import './env.js';
 
 const app = express();
@@ -17,7 +17,7 @@ app.use(express.json());
 
 app.post("/cut", cutURL);
 
-app.get("/[a-f0-9]{5}", redirect);
+// app.get("/[a-f0-9]{5}", redirect);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`)

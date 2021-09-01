@@ -2,7 +2,7 @@
 // import { URL } from "../models/url_model.js";
 // URL VALIDATION USING validator.js:
 import validator from 'validator';
-import { main } from '../connection.js';
+import { main } from '../../connection.js';
 
 async function cutURL(req, res) {
   // console.log("Validator test:", validator.isURL(req.body.url));
