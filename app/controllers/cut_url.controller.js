@@ -1,6 +1,8 @@
 // URL VALIDATION USING validator.js:
 import validator from 'validator';
-import { client } from '../../connection.js';
+// import { client } from '../../connection.js';
+import { db } from '../../connection.js';
+import { UrlModel } from '../models/url.model.js';
 
 async function cutURL(req, res) {
   // console.log("Validator test:", validator.isURL(req.body.url));
@@ -11,24 +13,43 @@ async function cutURL(req, res) {
     );
     // call to save the url and code to DB
     async function main() {
-
       try {
-        await client.connect();
-        await createListing(client, {
+        const instance = new UrlModel({
           url: req.body.url,
           code: code
         })
-        res.status(200).send({
-          code: code
-        });
+
+        await instance.save(e => {
+          if (!e) {
+            console.log('Successfully saved url!');
+            res.status(200).send({
+              code: code
+            });
+          } else {
+            console.log('something wrong:', e);
+          }
+        })
 
       } catch (e) {
         console.error(e);
-
-      } finally {
-        await client.close();
-
       }
+      // try {
+      //   // await client.connect();
+      //   await createListing(client, {
+      //     url: req.body.url,
+      //     code: code
+      //   })
+      //   res.status(200).send({
+      //     code: code
+      //   });
+
+      // } catch (e) {
+      //   console.error(e);
+
+      // } finally {
+      //   await client.close();
+
+      // }
     }
 
     main().catch(console.error);
@@ -38,11 +59,11 @@ async function cutURL(req, res) {
   };
 };
 
-async function createListing(client, newListing) {
-  const result = await client.db().collection('test_collection').insertOne(newListing);
+// async function createListing(client, newListing) {
+//   const result = await client.db().collection('test_collection').insertOne(newListing);
 
-  console.log(`New listing inserted with id: ${result.insertedId}`);
-}
+//   console.log(`New listing inserted with id: ${result.insertedId}`);
+// }
 
 export { cutURL }
 

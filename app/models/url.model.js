@@ -2,13 +2,15 @@
 import mongoose from 'mongoose';
 
 // Define Schema
-const urlSchema = new mongoose.Schema({
-  url: String,
+const Schema = mongoose.Schema;
+const UrlSchema = new Schema({
+  url: String, // can try using validation here
   code: String
 });
 
 // Compile model from schema
-const URL = mongoose.model('URL', urlSchema );
+// const Model = mongoose.model;
+const UrlModel = mongoose.model('url', UrlSchema );
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export#using_named_exports
-export { URL };
+export { UrlModel };
