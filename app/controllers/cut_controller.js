@@ -23,21 +23,17 @@ async function cutURL(req, res) {
         url: req.body.url,
         code: code
       })
-
       await instance.save(e => {
         if (!e) {
           console.log('Successfully saved url!');
           res.status(200).send({
             code: code
           })
-
         } else {
           console.log('something wrong:', e);
         }
       })
-
     } catch (e) {console.error(e)};
-
   } else {
     return res.status(400).send("Bad request, your URL is invalid");
   };

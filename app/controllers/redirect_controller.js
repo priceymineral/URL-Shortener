@@ -1,3 +1,13 @@
+import { UrlModel } from '../models/url_model.js';
+
+async function redirect(req, res) {
+
+}
+
+export { redirect };
+
+
+
 // retrieve the url from mongoDB with the code
 //   const code = req.url.replace(/\//, "");
 //   if (successful response) {
