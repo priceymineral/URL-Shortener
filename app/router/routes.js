@@ -1,5 +1,5 @@
 import express from "express";
-import { cutURL } from "../controllers/cut_url.controller.js";
+import { cutURL } from "../controllers/cut_controller.js";
 
 const router = express.Router();
 

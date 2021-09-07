@@ -9,7 +9,6 @@ const UrlSchema = new Schema({
 });
 
 // Compile model from schema
-// const Model = mongoose.model;
 const UrlModel = mongoose.model('url', UrlSchema );
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export#using_named_exports
