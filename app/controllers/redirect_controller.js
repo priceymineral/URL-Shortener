@@ -1,6 +1,18 @@
 import { UrlModel } from '../models/url_model.js';
 
 async function redirect(req, res) {
+  const code = req.url.replace(/\//, "");
+  console.log('code => ', code);
+  await UrlModel.findOne({ code: code }, (e, doc) => {
+    if (!e) {
+      console.log('document =>', doc);
+      res.redirect(doc.url);
+      // res.status(200).send({url})
+    } else {
+      console.log('error retrieving code =>', e);
+      res.status(400).send("Bad request, could not retrieve url")
+    }
+  });
 
 }
 
@@ -17,13 +29,6 @@ export { redirect };
 
   //   if (!found) res.status(404).send("URL not found");
   // };
-
-
-
-
-
-
-
 
   // import { Storage } from "./data/Storage.js";
 
