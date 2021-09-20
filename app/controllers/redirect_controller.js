@@ -2,7 +2,7 @@ import { UrlModel } from '../models/url_model.js';
 
 async function redirect(req, res) {
   const code = req.url.replace(/\//, "");
-  console.log('code => ', code);
+  // console.log('code => ', code);
   try {
     UrlModel.findOne({ code: code }, (e, doc) => {
       if (!e) {

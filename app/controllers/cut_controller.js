@@ -33,7 +33,9 @@ async function cutURL(req, res) {
           console.log('something wrong:', e);
         }
       })
-    } catch (e) {console.error(e)};
+    } catch (e) {
+      console.error(e)
+    };
   } else {
     return res.status(400).send("Bad request, your URL is invalid");
   };
