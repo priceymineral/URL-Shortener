@@ -8,6 +8,7 @@ node_modules/
 dist/
 
 newrelic.js
+
 # Compiled Java class files
 *.class
 

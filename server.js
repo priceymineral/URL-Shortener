@@ -1,3 +1,4 @@
+import newrelic from 'newrelic';
 import express from "express";
 import { router } from './app/router/routes.js';
 import { db } from './connection.js';
