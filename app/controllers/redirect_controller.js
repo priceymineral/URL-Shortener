@@ -3,16 +3,25 @@ import { UrlModel } from '../models/url_model.js';
 async function redirect(req, res) {
   const code = req.url.replace(/\//, "");
   console.log('code => ', code);
-  await UrlModel.findOne({ code: code }, (e, doc) => {
-    if (!e) {
-      console.log('document =>', doc);
-      res.redirect('https://'+doc.url);
-      // res.status(200).send({url})
-    } else {
-      console.log('error retrieving code =>', e);
-      res.status(400).send("Bad request, could not retrieve url")
-    }
-  });
+  try {
+    UrlModel.findOne({ code: code }, (e, doc) => {
+      if (!e) {
+        console.log('succressfully retrieved document =>', doc);
+        res.redirect('https://'+doc.url);
+        // res.status(200).send({url})
+      } else {
+        console.log('error retrieving code =>', e);
+        res.status(400).send("Bad request, could not retrieve url")
+      }
+    });
+  } catch (e) {
+    console.error(e);
+    // res.status(200).send(req.url);
+  }
+  // catch (e) {
+  //   console.log('error retrieving code (2) =>', e);
+  //   res.status(400).send("Bad request, could not retrieve url")
+  // }
 
 }
 
