@@ -26,7 +26,7 @@ export default class Form extends React.Component {
       <div>
         <form onSubmit={this.onSubmit}>
           <label>
-            Enter URL:
+            Enter URL: https://
             <input type="text" name="url" value={this.state.url} onChange={this.onChange}/>
           </label>
           <input type="submit" value="Submit" />

@@ -6,7 +6,7 @@ async function redirect(req, res) {
   await UrlModel.findOne({ code: code }, (e, doc) => {
     if (!e) {
       console.log('document =>', doc);
-      res.redirect(doc.url);
+      res.redirect('https://'+doc.url);
       // res.status(200).send({url})
     } else {
       console.log('error retrieving code =>', e);
