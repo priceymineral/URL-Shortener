@@ -8,8 +8,10 @@ const UrlSchema = new Schema({
   code: String
 });
 
+// create index for faster retrieval
+// index.UrlSchema({code: 1});
 // Compile model from schema
 const UrlModel = mongoose.model('url', UrlSchema );
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export#using_named_exports
-export { UrlModel };
+export { UrlModel }

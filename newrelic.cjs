@@ -68,3 +68,6 @@ exports.config = {
   }
 }
 
+// this file causes an error every time the server is run unless it's the extension is changed to '.csj'
+// Error can be safely ignored according to this:
+// https://github.com/scrollback/scrollback/issues/358
